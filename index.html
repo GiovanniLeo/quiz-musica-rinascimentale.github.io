@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La musica nel Rinascimento</title>
+<style>
+  body {
+    background: #f4ecd8 url('https://upload.wikimedia.org/wikipedia/commons/9/9a/Music_sheet_renaissance.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Garamond', serif;
+    color: #3b2f2f;
+    text-align: center;
+    margin: 0;
+  }
+  .container {
+    background: rgba(255, 248, 220, 0.9);
+    max-width: 700px;
+    margin: 5% auto;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  }
+  h1 { font-size: 2em; margin-bottom: 0.5em; }
+  .question { font-size: 1.3em; margin: 1em 0; }
+  .options button {
+    display: block;
+    margin: 0.5em auto;
+    padding: 0.7em 1.5em;
+    border: none;
+    border-radius: 10px;
+    background: #d9c8a9;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .options button:hover { background: #c2a774; }
+  .feedback { font-size: 1.2em; margin-top: 1em; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>La musica nel Rinascimento</h1>
+    <div id="quiz"></div>
+    <div class="feedback" id="feedback"></div>
+  </div>
+<script>
+const quizData = [
+  {q: 'In quale periodo storico si colloca il Rinascimento?', a: 0, o: ['Tra il 15° e il 16° secolo','Tra il 12° e il 13° secolo','Tra il 19° e il 20° secolo']},
+  {q: 'Quale movimento nasce durante il Rinascimento?', a: 1, o: ['Il Romanticismo','L’Umanesimo','L’Illuminismo']},
+  {q: 'Quale nuova visione si afferma in questo periodo storico?', a: 2, o: ['Dio al centro dell’Universo','La natura al centro dell’Universo','L’uomo al centro dell’Universo']},
+  {q: 'Quali sono i principali centri culturali del Rinascimento?', a: 1, o: ['Le biblioteche','Le corti','Le botteghe']},
+  {q: 'Quali famiglie nobili apprezzavano la musica rinascimentale?', a: 2, o: ['I Ferrara e gli Estensi','I Ferrara e i Gonzaga','I Gonzaga e gli Estensi']},
+  {q: 'Che cos’è una “frottola”?', a: 2, o: ['Una messa cantata','Una danza popolare','Una composizione a 4 voci']},
+  {q: 'Che cos’è un “madrigale”?', a: 0, o: ['Una composizione a 4 voci','Una danza popolare','Una forma musicale apprezzata dai nobili']},
+  {q: 'Qual è la principale differenza tra frottola e madrigale?', a: 0, o: ['Il madrigale è raffinato e senza ripetizioni','Il madrigale è semplice e allegro','La frottola è complessa e cupa']},
+  {q: 'Chi sono i principali compositori del madrigale in Italia?', a: 1, o: ['Adriano Willaert e Cipriano de Rore','Giovanni Pierluigi da Palestrina e Luca Marenzio','Martin Lutero e Giovanni Gabrieli']},
+  {q: 'Cosa è la messa polifonica?', a: 1, o: ['Una messa recitata','Una messa cantata','Una messa ballata']},
+  {q: 'Cosa significa “cantare a cappella”?', a: 1, o: ['Cantare con un sottofondo musicale','Cantare senza sottofondo musicale','Cantare in una chiesa']},
+  {q: 'Chi compone i “corali”?', a: 2, o: ['Pierluigi da Palestrina','Luca Marenzio','Martin Lutero']},
+  {q: 'Quali sono i principali centri della musica rinascimentale sacra?', a: 2, o: ['Roma e Milano','Milano e Venezia','Roma e Venezia']},
+  {q: 'In quale cappella romana la messa viene cantata dal coro?', a: 1, o: ['Cappella della Basilica di San Marco','Cappella Sistina','Cappella del Sacro Cuore']},
+  {q: 'Quali sono le caratteristiche della musica sacra romana?', a: 0, o: ['Lo stile è semplice ed equilibrato','Lo stile è ricco ed esagerato','Lo stile è raffinato ed elegante']}
+];
+
+let current = 0;
+const quizDiv = document.getElementById('quiz');
+const feedback = document.getElementById('feedback');
+
+function showQuestion() {
+  if (current >= quizData.length) {
+    quizDiv.innerHTML = '<h2>🎵 Complimenti! Hai completato la verifica sulla musica del Rinascimento!</h2><br><a href="https://forms.gle/RMiDmvaP5yPqc6SM6" target="_blank" style="display:inline-block;margin-top:1em;padding:0.8em 1.2em;background:#c2a774;color:#fff;text-decoration:none;border-radius:10px;font-size:1.1em;">📩 Invia la conferma della verifica</a>';
+    feedback.textContent = '';
+    return;
+  }
+  const q = quizData[current];
+  quizDiv.innerHTML = `<div class='question'>${current+1}. ${q.q}</div>` +
+    '<div class="options">' + q.o.map((opt, i) => `<button onclick="checkAnswer(${i})">${opt}</button>`).join('') + '</div>';
+  feedback.textContent = '';
+}
+
+function checkAnswer(i) {
+  const q = quizData[current];
+  if (i === q.a) {
+    feedback.textContent = '✔️ Corretto!';
+    setTimeout(() => { current++; showQuestion(); }, 1200);
+  } else {
+    feedback.textContent = '❌ Sbagliato! Riprova.';
+  }
+}
+
+showQuestion();
+</script>
+</body>
+</html>
